@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+var dashboardRouter = require("./app/dashboard/router");
 var categoryRouter = require("./app/category/router");
 // var usersRouter = require('./routes/users');
 
@@ -23,7 +24,8 @@ app.use(
   express.static(path.join(__dirname, "/node_modules/admin-lte"))
 );
 
-app.use("/", categoryRouter);
+app.use("/", dashboardRouter);
+app.use("/category", categoryRouter);
 // app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
