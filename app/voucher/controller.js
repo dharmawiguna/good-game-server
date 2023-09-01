@@ -13,7 +13,10 @@ module.exports = {
 
       const alert = { message: alertMessage, status: alertStatus };
 
-      const voucher = await Voucher.find();
+      const voucher = await Voucher.find()
+        .populate("category")
+        .populate("nominal");
+      console.log(voucher);
       res.render("admin/voucher/view_voucher", {
         voucher,
         alert,
@@ -60,7 +63,7 @@ module.exports = {
             const voucher = new Voucher({
               name,
               category,
-              nominals,
+              nominal: nominals,
               thumbnail: filename,
             });
 
