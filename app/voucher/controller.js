@@ -69,7 +69,7 @@ module.exports = {
             });
 
             await voucher.save();
-            req.flash("alertMessage", "Add Nominal Succesfully");
+            req.flash("alertMessage", "Add Voucher Succesfully");
             req.flash("alertStatus", "success");
             res.redirect("/voucher");
           } catch (error) {
@@ -86,7 +86,7 @@ module.exports = {
         });
 
         await voucher.save();
-        req.flash("alertMessage", "Add Nominal Succesfully");
+        req.flash("alertMessage", "Add Voucher Succesfully");
         req.flash("alertStatus", "success");
         res.redirect("/voucher");
       }
@@ -161,7 +161,7 @@ module.exports = {
               }
             );
 
-            req.flash("alertMessage", "Add Nominal Succesfully");
+            req.flash("alertMessage", "Add Voucher Succesfully");
             req.flash("alertStatus", "success");
             res.redirect("/voucher");
           } catch (error) {
@@ -193,22 +193,27 @@ module.exports = {
       res.redirect("/voucher");
     }
   },
-  //   actionDelete: async (req, res) => {
-  //     try {
-  //       const { id } = req.params;
+  actionDelete: async (req, res) => {
+    try {
+      const { id } = req.params;
 
-  //       await Nominal.findOneAndDelete({
-  //         _id: id,
-  //       });
+      const voucher = await Voucher.findOneAndRemove({
+        _id: id,
+      });
 
-  //       req.flash("alertMessage", "Delete Nominal Succesfully");
-  //       req.flash("alertStatus", "success");
+      let currentImage = `${config.rootPath}/public/uploads/${voucher.thumbnail}`;
+      if (fs.existsSync(currentImage)) {
+        fs.unlinkSync(currentImage);
+      }
 
-  //       res.redirect("/nominal");
-  //     } catch (error) {
-  //       req.flash("alertMessage", `${error.message}`);
-  //       req.flash("alertStatus", "danger");
-  //       res.redirect("/nominal");
-  //     }
-  //   },
+      req.flash("alertMessage", "Delete Voucher Succesfully");
+      req.flash("alertStatus", "success");
+
+      res.redirect("/voucher");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/voucher");
+    }
+  },
 };
