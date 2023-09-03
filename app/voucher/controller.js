@@ -216,4 +216,28 @@ module.exports = {
       res.redirect("/voucher");
     }
   },
+
+  actionStatus: async (req, res) => {
+    try {
+      const { id } = req.params;
+      let voucher = await Voucher.findOne({ _id: id });
+
+      let status = voucher.status === "Y" ? "N" : "Y";
+      voucher = await Voucher.findOneAndUpdate(
+        {
+          _id: id,
+        },
+        { status }
+      );
+
+      req.flash("alertMessage", "Update Status Voucher Succesfully");
+      req.flash("alertStatus", "success");
+
+      res.redirect("/voucher");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/voucher");
+    }
+  },
 };
