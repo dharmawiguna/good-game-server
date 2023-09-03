@@ -11,13 +11,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Voucher</h1>
+          <h1>Payment Create</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
-            <li class="breadcrumb-item active">Add Voucher</li>
+            <li class="breadcrumb-item"><a href="/payment">Payment</a></li>
+            <li class="breadcrumb-item active">Add Payment</li>
           </ol>
         </div>
       </div>
@@ -32,72 +32,42 @@
         <div class="col-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form Add Voucher</h3>
+              <h3 class="card-title">Form Add Payment</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form
-              action="/voucher/create"
-              method="POST"
-              enctype="multipart/form-data"
-            >
+            <form action="/payment/create" method="POST">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="name">Game Name</label>
+                  <label for="type">Type</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="name"
-                    placeholder="Game Name"
-                    name="name"
+                    id="type"
+                    placeholder="Type"
+                    name="type"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label>Category</label>
-                  <select
-                    class="form-control select2"
-                    name="category"
-                    style="width: 100%"
-                    required
-                  >
-                    <% category.forEach(category => { %>
-                    <option value="<%= category._id %>">
-                      <%= category.name %>
-                    </option>
-                    <% }) %>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Nominal</label>
+                  <label>Bank</label>
                   <div class="select2-purple">
                     <select
                       class="form-control select2"
                       multiple="multiple"
-                      data-placeholder="Select Nominal"
-                      name="nominals"
+                      data-placeholder="Select Bank"
+                      name="banks"
                       style="width: 100%"
                       required
                     >
-                      <% nominal.forEach(nominal => { %>
-                      <option value="<%= nominal._id %>">
-                        <%= nominal.coinName %> <%= nominal.price %>
+                      <% banks.forEach(bank => { %>
+                      <option value="<%= bank._id %>">
+                        <%= bank.bankName %> | <%= bank.ownerName %> | <%=
+                        bank.accountNumber %>
                       </option>
                       <% }) %>
                     </select>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="image">Image</label>
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="image"
-                    name="image"
-                    required
-                  />
-                  <br />
-                  <img src="" id="preview" />
                 </div>
               </div>
 
@@ -121,23 +91,3 @@
 <%- include ../../partials/footer.ejs %>
 <!-- include js file -->
 <%- include ../../partials/js.ejs %>
-
-<script>
-  function readUrl(input) {
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        $("#preview").attr("src", e.target.result);
-        $("#preview").attr("width", "20%");
-        $("#preview").attr("height", "20%");
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  $("#image").change(function () {
-    readUrl(this);
-  });
-</script>
