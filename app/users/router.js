@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const {
   viewSignIn,
+  actionSignIn,
   //   viewCreate,
   //   actionCreate,
   //   viewEdit,
@@ -10,6 +11,7 @@ const {
 } = require("./controller");
 
 router.get("/", viewSignIn);
+router.post("/", actionSignIn);
 // router.get("/create", viewCreate);
 // router.post("/create", actionCreate);
 // router.get("/edit/:id", viewEdit);
