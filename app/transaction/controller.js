@@ -26,7 +26,7 @@ module.exports = {
       const { id } = req.params;
       const { status } = req.query;
 
-      await Transaction.findOne({ _id: id }, { status });
+      await Transaction.findOneAndUpdate({ _id: id }, { status });
 
       req.flash("alertMessage", `Update Status Succesfully`);
       req.flash("alertStatus", "success");
