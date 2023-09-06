@@ -13,6 +13,8 @@ module.exports = {
       res.render("admin/payment/view_payment", {
         payment,
         alert,
+        name: req.session.user.name,
+        title: "Payment",
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
@@ -23,7 +25,11 @@ module.exports = {
   viewCreate: async (req, res) => {
     try {
       const banks = await Bank.find();
-      res.render("admin/payment/create", { banks });
+      res.render("admin/payment/create", {
+        banks,
+        name: req.session.user.name,
+        title: "Add Payment",
+      });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
       req.flash("alertStatus", "danger");
@@ -57,6 +63,8 @@ module.exports = {
       res.render("admin/payment/edit", {
         payment,
         bank,
+        name: req.session.user.name,
+        title: "Edit Payment",
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
