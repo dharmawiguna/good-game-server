@@ -120,7 +120,7 @@ module.exports = {
         category,
         voucher,
         name: req.session.user.name,
-        title: "Edit Voucher",
+        title: "Edit Voucher Page",
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
