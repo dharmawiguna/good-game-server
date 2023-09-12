@@ -7,6 +7,7 @@ module.exports = {
       const alertStatus = req.flash("alertStatus");
 
       const alert = { message: alertMessage, status: alertStatus };
+      const url = process.env.URL;
 
       const transaction = await Transaction.find().populate("player");
       res.render("admin/transaction/view_transaction", {
@@ -14,6 +15,7 @@ module.exports = {
         alert,
         name: req.session.user.name,
         title: "transaction",
+        url: url,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
