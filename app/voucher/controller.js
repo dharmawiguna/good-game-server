@@ -115,12 +115,15 @@ module.exports = {
       const category = await Category.find();
       const nominal = await Nominal.find();
 
+      const url = process.env.URL;
+
       res.render("admin/voucher/edit", {
         nominal,
         category,
         voucher,
         name: req.session.user.name,
         title: "Edit Voucher Page",
+        url: url,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
